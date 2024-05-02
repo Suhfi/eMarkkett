@@ -1,4 +1,6 @@
 import React from "react";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const Banner = () => {
   const data = [
@@ -32,6 +34,14 @@ const Banner = () => {
             src={data[3]}
             alt="ImageFour"
           />
+        </div>
+        <div>
+          <div>
+            <ArrowBackIcon />
+          </div>
+          <div>
+            <ArrowForwardIcon />
+          </div>
         </div>
       </div>
     </div>
