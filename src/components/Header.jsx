@@ -1,8 +1,10 @@
 import React from "react";
 import { cartImage, logo } from "../assets";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const products = useSelector((state) => state.markkett.productData);
   return (
     <div className="w-full h-20 bg-white border-b-[1px] border-b-gray-800 font-titleFont sticky top-0 z-50">
       <div className="max-w-screen-xl h-full mx-auto flex items-center justify-between">
@@ -32,7 +34,7 @@ const Header = () => {
           <div className="relative">
             <img className="w-6" src={cartImage} alt="" />
             <span className="absolute w-6 top-2 left-0 text-sm flex items-center justify-center font-semibold font-titleFont">
-              0
+              {products.length}
             </span>
           </div>
           <img

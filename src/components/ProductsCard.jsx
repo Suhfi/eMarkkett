@@ -1,7 +1,10 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { addToCart } from "../redux/markkettSlice";
 
 const ProductsCard = ({ product }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const _id = product.title;
   const idString = (_id) => {
@@ -51,7 +54,21 @@ const ProductsCard = ({ product }) => {
             </p>
           )}
         </div>
-        <button className="w-full bg-gray-700 text-white font-semibold my-2 rounded hover:bg-gray-600 active:bg-gray-500">
+        <button
+          onClick={() =>
+            dispatch(
+              addToCart({
+                _id: product._id,
+                title: product.title,
+                image: product.image,
+                price: product.price,
+                quantity: 1,
+                description: product.description,
+              })
+            )
+          }
+          className="w-full bg-gray-700 text-white font-semibold my-2 rounded hover:bg-gray-600 active:bg-gray-500"
+        >
           Add to Cart
         </button>
       </div>
