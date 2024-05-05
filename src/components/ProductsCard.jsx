@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../redux/markkettSlice";
+import { toast } from "react-toastify";
 
 const ProductsCard = ({ product }) => {
   const dispatch = useDispatch();
@@ -65,7 +66,7 @@ const ProductsCard = ({ product }) => {
                 quantity: 1,
                 description: product.description,
               })
-            )
+            ) & toast.success(`${product.title} is added`)
           }
           className="w-full bg-gray-700 text-white font-semibold my-2 rounded hover:bg-gray-600 active:bg-gray-500"
         >

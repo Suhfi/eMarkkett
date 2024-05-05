@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/markkettSlice";
+import { toast } from "react-toastify";
 
 const Product = () => {
   const [details, setDetails] = useState({});
@@ -77,7 +78,7 @@ const Product = () => {
                     quantity: baseQuantity,
                     description: details.description,
                   })
-                )
+                ) & toast.success(`${details.title} is added`)
               }
               className="bg-black text-white py-3 px-6 active:bg-gray-800"
             >
