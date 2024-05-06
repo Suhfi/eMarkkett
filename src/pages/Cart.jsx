@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import StripeCheckout from "react-stripe-checkout";
+import axios from "axios";
 
 const Cart = () => {
   const productData = useSelector((state) => state.markkett.productData);
@@ -28,6 +29,12 @@ const Cart = () => {
     } else {
       toast.error("Please Sign in Checkout");
     }
+  };
+  const payment = async () => {
+    await axios.post("http://localhost:8000/pay", {
+      amount: totalAmount * 100,
+      token: token,
+    });
   };
   return (
     <div>
@@ -73,7 +80,7 @@ const Cart = () => {
                   amount={totalAmount * 100}
                   label="Pay to eMarkkett"
                   description={`Your Payment amount is $${totalAmount}`}
-                  // token={payment}
+                  token={payment}
                   email={userInfo.email}
                 />
               </div>
