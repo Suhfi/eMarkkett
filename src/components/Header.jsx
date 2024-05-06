@@ -8,7 +8,7 @@ const Header = () => {
   const userInfo = useSelector((state) => state.markkett.userInfo);
   console.log(userInfo);
   return (
-    <div className="w-full h-20 bg-white border-b-[1px] border-b-gray-800 font-titleFont sticky top-0 z-50">
+    <div className="w-full h-20 bg-gray-300 border-b-gray-800 shadow-md font-titleFont sticky top-0 z-50">
       <div className="max-w-screen-xl h-full mx-auto flex items-center justify-between">
         <Link to="/">
           <div>
