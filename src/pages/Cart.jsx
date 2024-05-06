@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import StripeCheckout from "react-stripe-checkout";
 
 const Cart = () => {
   const productData = useSelector((state) => state.markkett.productData);
+  const userInfo = useSelector((state) => state.markkett.userInfo);
   const [totalAmount, setTotalAmount] = useState("");
+  const [payNow, setPayNow] = useState(false);
 
   useEffect(
     (item) => {
@@ -18,6 +22,13 @@ const Cart = () => {
     },
     [productData]
   );
+  const handleCheckOut = () => {
+    if (userInfo) {
+      setPayNow(true);
+    } else {
+      toast.error("Please Sign in Checkout");
+    }
+  };
   return (
     <div>
       <img
@@ -48,9 +59,25 @@ const Cart = () => {
             <p className="font-titleFont font-semibold flex justify-between mt-6">
               Total <span className="text-xl font-bold">$ {totalAmount}</span>
             </p>
-            <button className="text-base bg-black text-white w-full py-3 mt-6 hover:bg-gray-800 duration-300">
+            <button
+              onClick={handleCheckOut}
+              className="text-base bg-black text-white w-full py-3 mt-6 hover:bg-gray-800 duration-300"
+            >
               Proceed to Checkout
             </button>
+            {payNow && (
+              <div className="w-full mt-6 flex items-center justify-center">
+                <StripeCheckout
+                  stripeKey="pk_test_51LXpmzBcfNkwYgIPXd3qq3e2m5JY0pvhaNZG7KSCklYpVyTCVGQATRH8tTWxDSYOnRTT5gxOjRVpUZmOWUEHnTxD00uxobBHkc"
+                  name="eMarkkett Online Shopping"
+                  amount={totalAmount * 100}
+                  label="Pay to eMarkkett"
+                  description={`Your Payment amount is $${totalAmount}`}
+                  // token={payment}
+                  email={userInfo.email}
+                />
+              </div>
+            )}
           </div>
         </div>
       ) : (
